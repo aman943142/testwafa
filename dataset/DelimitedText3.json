@@ -15,7 +15,7 @@
 			},
 			"columnDelimiter": ",",
 			"compressionCodec": "tar",
-			"escapeChar": "\\",
+			"escapeChar": "/",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
