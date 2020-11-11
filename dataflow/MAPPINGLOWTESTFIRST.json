@@ -39,7 +39,7 @@
 					"name": "Filter1"
 				}
 			],
-			"script": "source(output(\n\t\tname as string,\n\t\tdept as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> emp\nsource(output(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> dept\nemp, dept join(dept == Column_1,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1\nJoin1 derive(uppername = upper(name)) ~> uppercolumn\nuppercolumn filter(name!=\"sai\") ~> Filter1\nFilter1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['final.csv'],\n\tmapColumn(\n\t\tname = uppername,\n\t\tdept,\n\t\tdeptname = Column_2\n\t),\n\tpartitionBy('hash', 1),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+			"script": "source(output(\n\t\tname as string,\n\t\tdept as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> emp\nsource(output(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> dept\nemp, dept join(dept == Column_1,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1\nJoin1 derive(uppername = upper(name)) ~> uppercolumn\nuppercolumn filter(name!=\"sai\") ~> Filter1\nFilter1 sink(input(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['final.csv'],\n\tmapColumn(\n\t\tname = uppername,\n\t\tdept,\n\t\tdeptname = Column_2\n\t),\n\tpartitionBy('hash', 1),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
 		}
 	}
 }
