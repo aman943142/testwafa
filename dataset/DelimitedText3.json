@@ -5,6 +5,12 @@
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"hi": {
+				"type": "string",
+				"defaultValue": "test"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
@@ -15,9 +21,7 @@
 			},
 			"columnDelimiter": ",",
 			"compressionCodec": "tar",
-
 			"escapeChar": "\\",
-
 			"quoteChar": "\""
 		},
 		"schema": [
